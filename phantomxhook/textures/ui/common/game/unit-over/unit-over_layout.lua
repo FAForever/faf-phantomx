@@ -1,0 +1,1 @@
+layout['icon_meteor'] =  {left = 14, top = 14, width = 4, height = 4, }
