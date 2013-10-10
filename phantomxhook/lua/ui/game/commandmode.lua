@@ -1,3 +1,4 @@
+--Hook for mafia meteors
 do
 
 #local GameMain = import('/lua/ui/game/gamemain.lua')
@@ -9,7 +10,7 @@ local OldOnCommandIssued = OnCommandIssued
 
 function OnCommandIssued(command)
 	OldOnCommandIssued(command)
-	#if import('/lua/MafiaSim.lua').allow_meteors then
+	#if import('/_test_code/MafiaSim.lua').allow_meteors then
 		if command.CommandType=="Script" then
 			LOG("hooked OnCommandIssued")
 			LOG(repr(command))
@@ -21,7 +22,7 @@ function OnCommandIssued(command)
 					
 			SimCallback({Func = 'SpawnMeteors', Args = data})
 				
-			#ForkThread(function() import('/modules/mafia_meteors.lua').SetupMafiaMeteors(posX, posY, posZ, count, radius) end)         
+			#ForkThread(function() import('/_test_code/mafia_meteors.lua').SetupMafiaMeteors(posX, posY, posZ, count, radius) end)         
 		end
 	#end
 end

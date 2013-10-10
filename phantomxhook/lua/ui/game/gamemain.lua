@@ -19,11 +19,11 @@ function CreateUI(isReplay)
 		if (tonumber(SessionGetScenarioInfo().Options.Mafia_Mod)) == 0 then
 			import('/modules/phantom.lua').CreateModUI(isReplay, parent)
 		else
-			import('/modules/mafia_ui.lua').CreateModUI(isReplay, parent)
+			import('/_test_code/mafia_ui.lua').CreateModUI(isReplay, parent)
 		end
 		
 		if (tonumber(SessionGetScenarioInfo().Options.TestNetLagReducer)) == 1 then
-			import('/modules/NetLagControl.lua').CreateModUI(isReplay, parent)
+			import('/_test_code/NetLagControl.lua').CreateModUI(isReplay, parent)
 		end
 	end
 end

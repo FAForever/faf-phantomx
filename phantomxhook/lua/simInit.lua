@@ -13,7 +13,7 @@ function BeginSession()
 	ParentBeginSession()
 
 	if (tonumber(ScenarioInfo.Options.Mafia_Mod))==1 then
-		ForkThread(import('/lua/MafiaSim.lua').PhantomMainThread)
+		ForkThread(import('/_test_code/MafiaSim.lua').PhantomMainThread)
 	else
 		ForkThread(import('/lua/PhantomSim.lua').PhantomMainThread)
 		

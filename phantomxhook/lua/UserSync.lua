@@ -56,38 +56,38 @@ function OnSync()
 	
 		if Sync.mRevealed then
 			LOG("UserSync: SetPhantomsRevealed()")
-			import('/modules/mafia_ui.lua').SetPhantomsRevealed(Sync.mRevealed)	
+			import('/_test_code/mafia_ui.lua').SetPhantomsRevealed(Sync.mRevealed)	
 		end
 		if Sync.mAssignment then
 			LOG("UserSync: SetAssignment()")
-			import('/modules/mafia_ui.lua').SetAssignment(Sync.mAssignment)
+			import('/_test_code/mafia_ui.lua').SetAssignment(Sync.mAssignment)
 		end
 		if Sync.mData then
 			LOG("UserSync: SetPhantomData()")
-			import('/modules/mafia_ui.lua').SetPhantomData(Sync.mData)
+			import('/_test_code/mafia_ui.lua').SetPhantomData(Sync.mData)
 		end
 		if Sync.mStats then
 			LOG("UserSync: SetPhantomStats()")
-			import('/modules/mafia_ui.lua').SetPhantomStats(Sync.mStats)
+			import('/_test_code/mafia_ui.lua').SetPhantomStats(Sync.mStats)
 		end
 		if Sync.mSkin then
 			LOG("UserSync: SetLAyout()")
-			import('/modules/mafia_ui.lua').SetLayout()
+			import('/_test_code/mafia_ui.lua').SetLayout()
 		end
 		if Sync.mVote then
 			LOG("UserSync: ShowPhantomVote")
-			import('/modules/mafia_ui.lua').ShowPhantomVote()
+			import('/_test_code/mafia_ui.lua').ShowPhantomVote()
 		end
 		if Sync.mVolunteer then
 			LOG("UserSync:  ShowVolunteerVote")
-			import('/modules/mafia_ui.lua').ShowVolunteerVote()
+			import('/_test_code/mafia_ui.lua').ShowVolunteerVote()
 		end	
 		if Sync.mMeteors then
 			LOG("UserSync:  ShowMeteorBtn")
-			import('/modules/mafia_ui.lua').ShowMeteorBtn(Sync.mMeteors)
+			import('/_test_code/mafia_ui.lua').ShowMeteorBtn(Sync.mMeteors)
 		end
 		if Sync.mAlert then
-			import('/modules/mafia_ui.lua').ShowAlert(Sync.mAlert)
+			import('/_test_code/mafia_ui.lua').ShowAlert(Sync.mAlert)
 		end
 		
 end
