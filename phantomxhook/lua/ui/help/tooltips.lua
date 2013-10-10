@@ -326,6 +326,11 @@ do
       title = "<LOC phantomx_0851>The time remaining before the meteors arrive.",
       description = "",
    }
+   Tooltips.Phantom_Break_All_Alliances = {
+      title = "<LOC phantomx_0852>Break All Alliances",
+      description = "Cancel alliances with all players",
+   }
+   
    
    --Tooltips for meteors
    Tooltips.PhantomX_MeteorDelay_Time = {

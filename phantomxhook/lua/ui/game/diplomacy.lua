@@ -7,6 +7,35 @@ local shareResources = false
 local alliedVictory = false
 lockTeams = false
 
+function AnnouncementHandler(announcements)
+    for _, announcement in announcements do
+        local text = false
+        local armies = GetArmiesTable().armiesTable
+		
+		--Randomly assign player names so that others won't know who broke
+		local a1 = ""
+		local a2 = ""
+		
+		local t1 = math.random()
+		if t1 < 0.5 then
+			a1 = armies[announcement.From]
+			a2 = armies[announcement.To]
+		else
+			a2 = armies[announcement.From]
+			a1 = armies[announcement.To]
+		end
+		
+        if announcement.Action == 'accept' then
+            text = LOCF('<LOC diplomacy_0009>%s and %s are now allies.', a1, a2)
+        elseif announcement.Action == 'break' then
+            text = LOCF('<LOC diplomacy_0010>%s and %s are no longer allies.', a1, a2)
+        end
+        if text then
+            Announce(text)
+        end
+    end
+end
+
 function BuildPlayerLines()
     local sessionOptions = SessionGetScenarioInfo().Options
 
@@ -111,7 +140,9 @@ function BuildPlayerLines()
                         SimCallback({Func = 'DiplomacyHandler', Args = {Action = 'break', From = GetFocusArmy(), To = data.armyIndex}})
                         ForkThread(function()
                             WaitSeconds(1)
-                            BuildPlayerLines()
+                            if parent then
+                                BuildPlayerLines()
+                            end
                         end)
                     end
                     Tooltip.AddButtonTooltip(entry.breakBtn, 'dip_break_alliance')
@@ -176,6 +207,27 @@ function BuildPlayerLines()
         parent.Items[i]:SetDropShadow(true)
         parent.Items[i].Depth:Set(function() return parent.Depth() + 10 end)
         LayoutHelpers.AtLeftTopIn(parent.Items[i], parent, 8, 10)
+
+        parent.Items[i].breakBtn = UIUtil.CreateButton(parent.Items[i], 
+                        '/dialogs/toggle_btn/toggle-d_btn_up.dds', 
+                        '/dialogs/toggle_btn/toggle-d_btn_down.dds', 
+                        '/dialogs/toggle_btn/toggle-d_btn_over.dds', 
+                        '/dialogs/toggle_btn/toggle-d_btn_dis.dds',
+                        'Break All', 12)
+        parent.Items[i].breakBtn.label:SetFont(UIUtil.bodyFont, 12)
+        LayoutHelpers.AtRightTopIn(parent.Items[i].breakBtn, parent, 12, 7)
+        parent.Items[i].breakBtn.OnClick = function(self, checked)
+            for index, info in allyControls do
+                SimCallback({Func = 'DiplomacyHandler', Args = {Action = 'break', From = GetFocusArmy(), To = info.armyIndex}})
+            end
+            ForkThread(function()
+                WaitSeconds(1)
+                if parent then
+                    BuildPlayerLines()
+                end
+            end)
+        end
+        Tooltip.AddButtonTooltip(parent.Items[i].breakBtn, 'Phantom_Break_All_Alliances')
         
         #parent.Items[i].srCheck = UIUtil.CreateCheckboxStd(parent.Items[i], '/game/toggle_btn/toggle')
         #parent.Items[i].srCheck.label = Bitmap(parent.Items[i].srCheck, UIUtil.UIFile('/game/toggle_btn/icon-shared-resources_bmp.dds'))
