@@ -92,7 +92,7 @@ function t2_CPUBenchmark()
     local totalTime = 0
     local lastTime
     local currTime
-    
+    local countTime = 0    
     --Make everything a local variable
     --This is necessary because we don't want LUA searching through the globals as part of the benchmark
     local h
@@ -101,9 +101,9 @@ function t2_CPUBenchmark()
     local k
     local l
     local m
-    for h = 1, 225, 1 do 
+    for h = 1, 36, 1 do
         lastTime = GetSystemTimeSeconds()
-        for i = 1.0, 4.0, 0.000008 do 
+        for i = 1.0, 20.0, 0.000008 do 
             j = i + i
             k = i * i
             l = k / j
@@ -111,11 +111,13 @@ function t2_CPUBenchmark()
         end
         currTime = GetSystemTimeSeconds()
         totalTime = totalTime + currTime - lastTime
-
-        --This is necessary in order to make this 'thread' yield so other things can be done.
-        WaitSeconds(0)
+        
+        if totalTime > countTime then
+            --This is necessary in order to make this 'thread' yield so other things can be done.
+            countTime = totalTime + .125
+            WaitSeconds(0)
+        end
     end
-
     t2_benchTime = math.ceil(totalTime * 100)
 end
 

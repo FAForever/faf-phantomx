@@ -12,17 +12,17 @@ function AnnouncementHandler(announcements)
         local text = false
         local armies = GetArmiesTable().armiesTable
 		
-		--Randomly assign player names so that others won't know who broke
+		--Randomly assign player names so that others won't know who initiated the break
 		local a1 = ""
 		local a2 = ""
 		
 		local t1 = math.random()
 		if t1 < 0.5 then
-			a1 = armies[announcement.From]
-			a2 = armies[announcement.To]
+			a1 = armies[announcement.From].nickname
+			a2 = armies[announcement.To].nickname
 		else
-			a2 = armies[announcement.From]
-			a1 = armies[announcement.To]
+			a2 = armies[announcement.From].nickname
+			a1 = armies[announcement.To].nickname
 		end
 		
         if announcement.Action == 'accept' then
@@ -31,7 +31,8 @@ function AnnouncementHandler(announcements)
             text = LOCF('<LOC diplomacy_0010>%s and %s are no longer allies.', a1, a2)
         end
         if text then
-            Announce(text)
+            --Disabled for now.  May re-enable this later.
+            --Announce(text)
         end
     end
 end

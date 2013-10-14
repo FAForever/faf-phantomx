@@ -66,8 +66,8 @@ function MeteorStrikeC(data)
 end
 
 function SetupMafiaMeteors(data)
-	LOG("GLOBAL: allow_meteors: " .. import('/lua/MafiaSim.lua').allow_meteors)
-	LOG("GLOBAL: meteor_count: " .. import('/lua/MafiaSim.lua').meteor_count)
+	LOG("GLOBAL: allow_meteors: " .. import('/_test_code/MafiaSim.lua').allow_meteors)
+	LOG("GLOBAL: meteor_count: " .. import('/_test_code/MafiaSim.lua').meteor_count)
 	
 	local strike_number = import('/lua/MafiaSim.lua').meteor_count
 	
@@ -79,7 +79,7 @@ function SetupMafiaMeteors(data)
 	data.splash = 8 + strike_number
 	data.dmg = 8000 + strike_number * 10000
 	
-	if tonumber(ScenarioInfo.Options.Mafia_Mod)==1 and import('/lua/MafiaSim.lua').allow_meteors==1 then
+	if tonumber(ScenarioInfo.Options.Mafia_Mod)==1 and import('/_test_code/MafiaSim.lua').allow_meteors==1 then
 		ConfigureMeteorArmy()	
 		LOG("in meteors.lua SpawnMafiaMeteors")
 		ForkThread(MeteorStrikeC,data)
