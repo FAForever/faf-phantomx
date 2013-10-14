@@ -69,7 +69,7 @@ function SetupMafiaMeteors(data)
 	LOG("GLOBAL: allow_meteors: " .. import('/_test_code/MafiaSim.lua').allow_meteors)
 	LOG("GLOBAL: meteor_count: " .. import('/_test_code/MafiaSim.lua').meteor_count)
 	
-	local strike_number = import('/lua/MafiaSim.lua').meteor_count
+	local strike_number = import('/_test_code/MafiaSim.lua').meteor_count
 	
 	local base_radius = 30
 	local base_count = 4
