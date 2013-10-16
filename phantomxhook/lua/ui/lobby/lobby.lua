@@ -101,13 +101,24 @@ function t2_CPUBenchmark()
     local k
     local l
     local m
-    for h = 1, 36, 1 do
+    for h = 1, 48, 1 do
         lastTime = GetSystemTimeSeconds()
-        for i = 1.0, 20.0, 0.000008 do 
-            j = i + i
-            k = i * i
-            l = k / j
-            m = j - i
+        for i = 1.0, 25.0, 0.0008 do 
+            --This instruction set should cover most LUA operators
+            j = i + i   --Addition
+            k = i * i   --Multiplication
+            l = k / j   --Division 
+            m = j - i   --Subtraction
+            j = i ^ 4   --Power
+            l = -i      --Negation
+            m = {'One', 'Two', 'Three'} --Create Table
+            table.insert(m, 'Four')     --Insert Table Value
+            table.remove(m, 1)          --Remove Table Value           
+            l = table.getn(m)           --Get Table Length
+            k = i < j   --Less Than        
+            k = i == j  --Equality
+            k = i <= j  --Less Than or Equal to
+            k = not k
         end
         currTime = GetSystemTimeSeconds()
         totalTime = totalTime + currTime - lastTime
