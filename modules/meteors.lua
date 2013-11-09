@@ -4,6 +4,7 @@ local meteorArmyIdx = false
 local meteorLauncherUnit = false
 local scenarioMeteorDelay = 0
 local scenarioMeteorDelayIncrement = 0
+local massDelayAmount = 60
 local assignmentTime = 8 * 60
 local initialDelayAfterAssignment = 0
 local armiesInGame = 0
@@ -59,7 +60,12 @@ function MeteorsThread()
                     end
                     Sync.pAlert = { "Orbital Observatory Report", "Meteors showers have stopped...for now!"}
                 end
-                WaitSeconds(10)
+                WaitSeconds(5)
+            else
+                --If time before meteors is less than two minutes and the mass threshold is reached, then delay meteors
+                if massDestroyed/massProduced > thresholdPercent and timeRemaining < massDelayAmount then                    
+                    massDelayCount = massDelayCount + 1
+                end
 			end
 			WaitSeconds(1)
 		end
@@ -76,7 +82,7 @@ function CalculateMetricsThread()
         WaitSeconds(0.1)
         
         numberOfLiveArmies = LiveArmyCount()
-        thresholdPercent = 1.0 / numberOfLiveArmies
+        thresholdPercent = 2.0 / numberOfLiveArmies
         meteorsDone = numberOfLiveArmies <= 2    
         timeRemaining = ComputeMeteorStartTime() - GetGameTimeSeconds()
         
@@ -106,7 +112,7 @@ function CalculateMetricsThread()
             massDestroyed = massDestroyed - List.popleft(massDestroyedList)
         end
         
-        Sync.pMeteorData = {MassDestroyedPercent = 200*(massDestroyed/massProduced), TimeRemaining = timeRemaining, MeteorsDone = meteorsDone, ThresholdPercent=thresholdPercent}
+        Sync.pMeteorData = {MassDestroyedPercent = 100*(massDestroyed/massProduced), TimeRemaining = timeRemaining, MeteorsDone = meteorsDone, ThresholdPercent=thresholdPercent}
     end
 end
 
@@ -135,7 +141,7 @@ function ComputeMeteorStartTime()
     meteorStartTime = meteorStartTime + math.max(deadPlayers - 1, 0) * scenarioMeteorDelayIncrement
     
     --Add additional increment time for mass delays
-    meteorStartTime = meteorStartTime + massDelayCount * scenarioMeteorDelayIncrement
+    meteorStartTime = meteorStartTime + massDelayCount * massDelayAmount
     
     return meteorStartTime
 end
@@ -175,7 +181,12 @@ function ConfigureMeteorArmy()
 	 	end
 	end
 	
-	meteorLauncherUnit = CreateUnitHPR("PCU1001", meteorArmyIdx,  -100, 0, -50,0,0,0)
+    --Create the launcher unit on map and THEN warp it off map.
+    --Apparently, spawning a unit off map can corrupt the entire heightmap.
+    local posY = math.max(GetSurfaceHeight(32, 32), GetTerrainHeight(32, 32))
+	meteorLauncherUnit = CreateUnitHPR("PCU1001", meteorArmyIdx,  32, posY, 32,0,0,0)
+    posY = math.max(GetSurfaceHeight(-60, -70), GetTerrainHeight(-60, -70))
+    Warp( meteorLauncherUnit, Vector(-60, posY, -70))
 end
 
 -----------------------------------------------------------------

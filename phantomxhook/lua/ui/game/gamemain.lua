@@ -21,9 +21,5 @@ function CreateUI(isReplay)
 		else
 			import('/_test_code/mafia_ui.lua').CreateModUI(isReplay, parent)
 		end
-		
-		if (tonumber(SessionGetScenarioInfo().Options.TestNetLagReducer)) == 1 then
-			import('/_test_code/NetLagControl.lua').CreateModUI(isReplay, parent)
-		end
 	end
 end

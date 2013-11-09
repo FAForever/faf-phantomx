@@ -560,29 +560,6 @@
           },
        }
     )
-    
-    
-    table.insert(globalOpts,
-        {
-            default = 1,
-            label = "<LOC phantomx_0400>P-X: Net Lag Reducer",
-                        help = "<LOC phantomx_0401>Experimental option for testing purposes only.  Use at your own risk!",
-            key = 'TestNetLagReducer',
-            pref = 'Test_NetLagReducer',
-            values = {
-             {
-                    text = "<LOC phantomx_0302>Off",
-                    help = "<LOC phantomx_0303>Off",
-                    key = '0',
-                },
-             {
-                    text = "<LOC phantomx_0304>On",
-                    help = "<LOC phantomx_0305>On",
-                    key = '1',
-                },
-          },
-       }
-    )
 	
 	table.insert(globalOpts,
         {
