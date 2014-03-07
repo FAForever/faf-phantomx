@@ -1,1 +1,0 @@
-Callbacks.SpawnMeteors = import('/_test_code/mafia_meteors.lua').SetupMafiaMeteors

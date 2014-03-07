@@ -564,29 +564,6 @@
 	table.insert(globalOpts,
         {
             default = 1,
-            label = "<LOC phantomx_0400>P-X: Mafia Submod (alpha stage)",
-            help = "<LOC phantomx_0401>Experimental submod in early alpha",
-            key = 'Mafia_Mod',
-            pref = 'PhantomX_Mafia_Mod',
-            values = {
-             {
-                    text = "<LOC phantomx_0500>Off",
-                    help = "<LOC phantomx_0501>Off",
-                    key = '0',
-                },
-             {
-                    text = "<LOC phantomx_0502>On",
-                    help = "<LOC phantomx_0503>On",
-                    key = '1',
-                },
-          },
-       }
-    )
-	
-	
-	table.insert(globalOpts,
-        {
-            default = 1,
             label = "<LOC phantomx_0410>P-X: Number of Phantoms",
             help = "<LOC phantomx_0411>Enables the host to set the number of Phantoms, or to allow a vote.",
             key = 'Phantom_PhantNumber',

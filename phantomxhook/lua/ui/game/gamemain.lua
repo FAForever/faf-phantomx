@@ -11,15 +11,10 @@ local modPath = 'Phantom-X'
 local baseCreateUI = CreateUI 
 
 function CreateUI(isReplay) 
-	baseCreateUI(isReplay) 
-	
-  	if not isReplay then
-		local parent = import('/lua/ui/game/borders.lua').GetMapGroup()
-		
-		if (tonumber(SessionGetScenarioInfo().Options.Mafia_Mod)) == 0 then
-			import('/modules/phantom.lua').CreateModUI(isReplay, parent)
-		else
-			import('/_test_code/mafia_ui.lua').CreateModUI(isReplay, parent)
-		end
-	end
+    baseCreateUI(isReplay) 
+    
+    if not isReplay then
+        local parent = import('/lua/ui/game/borders.lua').GetMapGroup()
+        import('/modules/phantom.lua').CreateModUI(isReplay, parent)
+    end
 end
