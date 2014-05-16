@@ -9,3 +9,9 @@ function OnGameOver()
         end
     end
 end
+
+actions.ShowHelp = function() import('/modules/help_ui.lua').ShowPhantomXHelpDialog(GetFrame(0)) end
+table.insert(menus.main.singlePlayer,  {action = 'ShowHelp', label = 'About Phantom-X', tooltip = ''})
+table.insert(menus.main.replay,  {action = 'ShowHelp', label = 'About Phantom-X', tooltip = ''})
+table.insert(menus.main.lan,  {action = 'ShowHelp', label = 'About Phantom-X', tooltip = ''})
+table.insert(menus.main.gpgnet ,  {action = 'ShowHelp', label = 'About Phantom-X', tooltip = ''})

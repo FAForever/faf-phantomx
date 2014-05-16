@@ -66,3 +66,21 @@ function AssignRandomFactions(gameInfo)
     --Note tha by this point, any "Random - No UEF" players should have a faction and so, should not be assigned another
     PX_oldAssignRandomFactions(gameInfo)
 end
+
+--Help UI Changes
+local PhantomX_Original_CreateUI = CreateUI
+
+function CreateUI(maxPlayers)
+	PhantomX_Original_CreateUI(maxPlayers)
+	CreatePhantomLobbyUI()
+end
+
+function CreatePhantomLobbyUI()
+	--This function handles creation of Phantom-X lobby UI elements (buttons, tooltips, etc)
+    GUI.showPhantomXHelp = UIUtil.CreateButtonStd2PNG(GUI.panel, '/BUTTON/small/', 'About Phantom-X', 10, 0)
+	LayoutHelpers.AtLeftTopIn(GUI.showPhantomXHelp, GUI.panel, GUI.panel.Width()-218, 320)
+	
+	GUI.showPhantomXHelp.OnClick = function(self, modifiers)
+		import('/modules/help_ui.lua').ShowPhantomXHelpDialog(GUI.panel)
+	end
+end
