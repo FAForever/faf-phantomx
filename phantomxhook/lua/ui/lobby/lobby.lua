@@ -9,7 +9,7 @@ function RefreshOptionDisplayData(scenarioInfo)
                 v.value = 'Incompatible Map'
             end
         end
-        for i, v in FormOpt2 do
+		for i, v in nonDefaultFormattedOptions do
             if v.text == '<LOC phantomx_0260>P-X: Meteors' then
                 v.value = 'Incompatible Map'
             end
@@ -77,7 +77,7 @@ end
 
 function CreatePhantomLobbyUI()
 	--This function handles creation of Phantom-X lobby UI elements (buttons, tooltips, etc)
-    GUI.showPhantomXHelp = UIUtil.CreateButtonStd2PNG(GUI.panel, '/BUTTON/small/', 'About Phantom-X', 10, 0)
+    GUI.showPhantomXHelp = UIUtil.CreateButtonStd(GUI.panel, '/BUTTON/small/', 'About Phantom-X', 9, 0)
 	LayoutHelpers.AtLeftTopIn(GUI.showPhantomXHelp, GUI.panel, GUI.panel.Width()-218, 320)
 	
 	GUI.showPhantomXHelp.OnClick = function(self, modifiers)
