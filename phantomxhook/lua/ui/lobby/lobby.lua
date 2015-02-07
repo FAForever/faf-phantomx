@@ -1,5 +1,7 @@
---Lobby modifications for meteor map comptibility detection
---Duck42
+--Lobby modifications for meteor map compatibility detection
+--7/20/2013
+--Mead/Duck42
+
 local PX_oldRefreshOptionDisplayData = RefreshOptionDisplayData
 function RefreshOptionDisplayData(scenarioInfo)
     PX_oldRefreshOptionDisplayData(scenarioInfo)
@@ -35,11 +37,27 @@ function MapHasCivilianArmy(scenario)
     return false
 end
 
---Lobby modifications for meteor map comptibility detection
---7/20/2013
---Mead/Duck42
+--Random, but not UEF faction option
 table.insert(factionBmps, "/faction_icon-sm/random_ico_no_uef.dds")
 table.insert(factionTooltips, 'lob_random_no_uef')
+
+local PX_oldFaction_Selector_Set_Enabled = Faction_Selector_Set_Enabled
+function Faction_Selector_Set_Enabled(enabled, faction)
+	local randomFactionID_noUEF = table.getn(FactionData.Factions) + 2
+	if faction == randomFactionID_noUEF then
+		-- Set everything to the small version.
+		for k, v in pairs(FACTION_PANELS) do
+			v:SetTexture("/textures/ui/common/FACTIONSELECTOR/" .. FACTION_NAMES[k] .. "_ico.png")
+		end
+		
+		-- Set the enabled state of the panel.
+		for k , v in pairs(FACTION_PANELS) do
+			UIUtil.setEnabled(v, enabled)
+		end
+	else
+		PX_oldFaction_Selector_Set_Enabled(enabled, faction)
+	end
+end
 
 function GetRandomFactionIndex_noUEF()
     local randomfaction
@@ -63,7 +81,7 @@ function AssignRandomFactions(gameInfo)
     end
         
     --Handle the regular "Random" option
-    --Note tha by this point, any "Random - No UEF" players should have a faction and so, should not be assigned another
+    --Note that by this point, any "Random - No UEF" players should have a faction and so, should not be assigned another
     PX_oldAssignRandomFactions(gameInfo)
 end
 
