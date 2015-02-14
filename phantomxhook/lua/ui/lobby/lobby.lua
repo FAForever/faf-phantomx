@@ -40,24 +40,44 @@ end
 --Random, but not UEF faction option
 table.insert(factionBmps, "/faction_icon-sm/random_ico_no_uef.dds")
 table.insert(factionTooltips, 'lob_random_no_uef')
+local randomFactionID_noUEF = table.getn(FactionData.Factions) + 2
 
 local PX_oldFaction_Selector_Set_Enabled = Faction_Selector_Set_Enabled
 function Faction_Selector_Set_Enabled(enabled, faction)
-	local randomFactionID_noUEF = table.getn(FactionData.Factions) + 2
+	--If Random but no UEF, then use value for random to avoid problems	
 	if faction == randomFactionID_noUEF then
-		-- Set everything to the small version.
-		for k, v in pairs(FACTION_PANELS) do
-			v:SetTexture("/textures/ui/common/FACTIONSELECTOR/" .. FACTION_NAMES[k] .. "_ico.png")
-		end
-		
-		-- Set the enabled state of the panel.
-		for k , v in pairs(FACTION_PANELS) do
-			UIUtil.setEnabled(v, enabled)
-		end
-	else
-		PX_oldFaction_Selector_Set_Enabled(enabled, faction)
+		faction = randomFactionID_noUEF - 1
 	end
+	
+	--Call the original function
+	PX_oldFaction_Selector_Set_Enabled(enabled, faction)
 end
+
+local PX_oldupdateFactionSelectorIcons = updateFactionSelectorIcons
+function updateFactionSelectorIcons(enabled, faction)
+	--If Random but no UEF, then use value for random to avoid problems
+	if faction == randomFactionID_noUEF then
+		faction = randomFactionID_noUEF - 1
+	end
+	
+	--Call the original function
+	PX_oldupdateFactionSelectorIcons(enabled, faction)
+end
+
+local PX_oldSetCurrentFactionTo_Faction_Selector = SetCurrentFactionTo_Faction_Selector
+function SetCurrentFactionTo_Faction_Selector(input_faction)
+	local faction = input_faction or Prefs.GetFromCurrentProfile('LastFaction') or 1
+	
+	--If Random but no UEF, then use value for random to avoid problems	
+	if faction == randomFactionID_noUEF then
+		LOG('Random but no UEF detected, using random')
+		faction = randomFactionID_noUEF - 1
+	end
+	
+	--Call the original function
+	PX_oldSetCurrentFactionTo_Faction_Selector(faction)
+end
+
 
 function GetRandomFactionIndex_noUEF()
     local randomfaction
