@@ -13,6 +13,7 @@ local Group = import('/lua/maui/group.lua').Group
 local Text = import('/lua/maui/text.lua').Text
 local ItemList = import('/lua/maui/itemlist.lua').ItemList
 local MenuCommon = import('/lua/ui/menus/menucommon.lua')
+local Popup = import('/lua/ui/controls/popups/popup.lua').Popup
 
 --local dialog = false
 
@@ -46,6 +47,55 @@ helpText = helpText..'Other Rules\n\n'
 helpText = helpText..' -Engineer Trading\n'
 helpText = helpText..'    Although not often explicitly stated, engineer trading is usually prohibited in phantom games. If you plan on trading engineers, be sure to check with the host about whether or not trading is permitted.  Stealing (capturing) engineers is usually allowed as long as it\'s not just a disguised trade.\n'
 
+function ShowPhantomXHelpDialog(inParent)
+	local dialogContent = Group(inParent)
+    dialogContent.Width:Set(700)
+    dialogContent.Height:Set(450)
+	
+	local popup = Popup(inParent, dialogContent)
+	
+	local function doCancel()
+        popup:Close()
+    end
+
+    popup.OnShadowClicked = doCancel
+    popup.OnEscapePressed = doCancel
+	
+	local exitButton = UIUtil.CreateButtonWithDropshadow(dialogContent, '/BUTTON/medium/', "<LOC _Close>")
+	LayoutHelpers.AtBottomIn(exitButton, dialogContent, 25)
+    LayoutHelpers.AtHorizontalCenterIn(exitButton, dialogContent)
+	
+    exitButton.OnClick = doCancel
+	
+	local title = UIUtil.CreateText(dialogContent, "Phantom-X Help", 20)
+    LayoutHelpers.AtHorizontalCenterIn(title, dialogContent)
+    LayoutHelpers.AtTopIn(title, dialogContent, 12)
+	
+    LayoutHelpers.AtBottomIn(exitButton, dialogContent, 10)
+    LayoutHelpers.AtHorizontalCenterIn(exitButton, dialogContent)
+	
+	local helpBody = ItemList(dialogContent)
+    LayoutHelpers.AtLeftTopIn(helpBody, dialogContent, 19, 50)
+    helpBody.Height:Set(340)
+    helpBody.Width:Set(662)
+	helpBody:SetColors(UIUtil.fontColor, "00000000", UIUtil.fontColor, "00000000")
+    helpBody:SetFont(UIUtil.bodyFont, 12)
+    UIUtil.CreateLobbyVertScrollbar(helpBody, -15, 0, 0)
+	UIUtil.SurroundWithBorder(helpBody, '/scx_menu/lan-game-lobby/frame/')
+    
+    local textBoxWidth = helpBody.Width() - 25
+
+    local tempTable = import('/lua/maui/text.lua').WrapText(LOC(helpText), textBoxWidth,
+    function(text)
+        return helpBody:GetStringAdvance(text)
+    end)
+    
+    for i, v in tempTable do
+        helpBody:AddItem(v)
+    end
+end
+
+--[[
 function ShowPhantomXHelpDialog(inParent)
     local parent = Group(inParent)
     LayoutHelpers.FillParent(parent, inParent)
@@ -91,6 +141,7 @@ function ShowPhantomXHelpDialog(inParent)
         helpBody:AddItem(v)
     end
 end
+--]]
 
 --[[
 function ShowPhantomXHelpDialog(parent)

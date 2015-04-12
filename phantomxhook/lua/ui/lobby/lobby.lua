@@ -49,10 +49,7 @@ local RandomNoUEFFaction = {
 	
 table.insert(FactionData.Factions, RandomNoUEFFaction)
 
-local LobbyManager_Original_CreateSlotsUI = CreateSlotsUI
-
-
-local function GetRandomFactionIndex()
+function GetRandomFactionIndex()
     local randomfaction = nil
     local counter = 50
     while counter > 0 do
