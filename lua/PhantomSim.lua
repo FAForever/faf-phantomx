@@ -91,7 +91,11 @@ local cur = {
 	},
 	votes = {},
 	volunteers = {},
-	marksRemaining = {}
+	marksRemaining = {},
+	resourceTransferOffset = {
+		energy = 0,
+		mass = 0
+	}
 }
 
 function ChangeAssignmentTime(offset)
@@ -675,6 +679,9 @@ function PhantomXResourceThread()
 	local lastPaladinEnergyBonus = 0
 	
 	local counter = 0
+	cur.resourceTransferOffset.mass = 0
+	cur.resourceTransferOffset.energy = 0
+	local errorCheck = false
 	
 	while true do
 		WaitSeconds(0.1)
@@ -701,7 +708,7 @@ function PhantomXResourceThread()
 					energy = energy + brain:GetEconomyIncome('ENERGY')
 				end
 			end
-
+			
 			# What alliance status do we have, all allied, mixed or all out war?
 			local allied = false
 			local enemy = false
@@ -741,6 +748,27 @@ function PhantomXResourceThread()
 					mass = mass - lastPaladinMassBonus
 					energy = energy - lastPaladinEnergyBonus
 				end
+			end
+			
+			#Handle Mass/Energy Transfers (so phantoms don't get an additional bonus from gifts)
+			if(cur.resourceTransferOffset.mass > 0) then
+				#LOG('Mass transfer detected.  Mass total ('..mass..')reduced by '..cur.resourceTransferOffset.mass..' mass.')
+				mass = mass - cur.resourceTransferOffset.mass
+				if mass < 0 then
+					mass = 0
+					errorCheck
+				end
+				cur.resourceTransferOffset.mass = 0
+			end
+			
+			if(cur.resourceTransferOffset.energy > 0) then
+				#LOG('Energy transfer detected.  Energy total ('..energy..') reduced by '..cur.resourceTransferOffset.energy..' energy.')
+				energy = energy - cur.resourceTransferOffset.energy
+				if energy < 0 then
+					energy = 0
+					errorCheck = true
+				end
+				cur.resourceTransferOffset.energy = 0
 			end
 			
 			# Give bonus to phantoms
@@ -875,6 +903,21 @@ function PhantomXResourceThread()
 			end
 		end
 	end
+	
+	if errorCheck then
+		WARN('An error occurred in the phantom-x bonus calculation thread.  The error was handled, but should be researched and corrected')
+	end
+end
+
+# Determines if an army is an innocent
+function IsInnocent(army)
+	for index, p in cur.innocents do
+		if p == army then
+			return true
+		end
+	end
+	
+	return false
 end
 
 # Determines if an army is a phantom
@@ -1170,5 +1213,14 @@ function RevealPaladin(army, index)
 		elseif(index == 3) then
 			pRevealed.pal3 = army
 		end
+	end
+end
+
+function HandleResourceTransfer(from, to, massTaken, energyTaken)
+	--Determine if 'to' is an innocent...
+	if IsInnocent(to) then
+		--If so, add resource transfer amount into a variable so it can be subtracted from the income totals later.
+		cur.resourceTransferOffset.mass = cur.resourceTransferOffset.mass + massTaken
+		cur.resourceTransferOffset.energy = cur.resourceTransferOffset.energy + energyTaken
 	end
 end
