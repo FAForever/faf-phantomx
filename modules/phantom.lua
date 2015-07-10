@@ -455,7 +455,9 @@ function PhantomUIBeat()
 end
 
 function SetAssignment(assignment)
-	pUI.box.title:SetText(assignment)
+	if not SessionIsReplay() then
+		pUI.box.title:SetText(assignment)
+	end
 end
 
 function SetPhantomData(data)
@@ -503,49 +505,50 @@ function SetPhantomData(data)
 end
 
 function SetPhantomStats(stats)
-	pStats = stats
-	if pData.isPhantom then
-		# Show innocent kills
-		pUI.box.kills:SetText(pStats.innocents_dead..'/'..pStats.innocent_count)
-	else
-		# Show phantom kills
-		pUI.box.kills:SetText(pStats.phantoms_dead..'/'..pStats.phantom_count)
+	if not SessionIsReplay() then
+		pStats = stats
+		if pData.isPhantom then
+			# Show innocent kills
+			pUI.box.kills:SetText(pStats.innocents_dead..'/'..pStats.innocent_count)
+		else
+			# Show phantom kills
+			pUI.box.kills:SetText(pStats.phantoms_dead..'/'..pStats.phantom_count)
+		end
+		
+		# Show player statuses
+		local pRemain = pStats.phantom_count - pStats.phantoms_dead
+		
+		#number of innocents (excluding paladins, dead or otherwise)
+		local iRemain = pStats.innocent_count - pStats.paladin_count - pStats.innocents_dead + pStats.paladins_dead
+		
+		local palRemain = pStats.paladin_count - pStats.paladins_dead
+		if death_reveal == 1 then
+			local statusText = "Alive: "
+			statusText = statusText .. iRemain
+			statusText = statusText .. " INNO, "
+		
+			#if iRemain > 1 or iRemain == 0 then
+			#	statusText = statusText .. " innocents, "
+			#else
+			#	statusText = statusText .. " innocent, "
+		
+			#end
+			statusText = statusText .. palRemain
+			statusText = statusText .. " PLDN, "
+		
+			statusText = statusText .. pRemain
+			statusText = statusText .. " PHTM"
+			#if pRemain > 1 or pRemain == 0 then
+			#	statusText = statusText .. " phantoms"
+			#else
+			#	statusText = statusText .. " phantom"
+			#end
+			pUI.box.countdown:SetText(statusText)
+		else
+			local statusText = "Remaining player counts disabled."
+			pUI.box.countdown:SetText(statusText)
+		end
 	end
-	
-	# Show player statuses
-	local pRemain = pStats.phantom_count - pStats.phantoms_dead
-	
-	#number of innocents (excluding paladins, dead or otherwise)
-	local iRemain = pStats.innocent_count - pStats.paladin_count - pStats.innocents_dead + pStats.paladins_dead
-	
-	local palRemain = pStats.paladin_count - pStats.paladins_dead
-	if death_reveal == 1 then
-		local statusText = "Alive: "
-		statusText = statusText .. iRemain
-		statusText = statusText .. " INNO, "
-	
-		#if iRemain > 1 or iRemain == 0 then
-		#	statusText = statusText .. " innocents, "
-		#else
-		#	statusText = statusText .. " innocent, "
-	
-		#end
-		statusText = statusText .. palRemain
-		statusText = statusText .. " PLDN, "
-	
-		statusText = statusText .. pRemain
-		statusText = statusText .. " PHTM"
-		#if pRemain > 1 or pRemain == 0 then
-		#	statusText = statusText .. " phantoms"
-		#else
-		#	statusText = statusText .. " phantom"
-		#end
-		pUI.box.countdown:SetText(statusText)
-	else
-		local statusText = "Remaining player counts disabled."
-		pUI.box.countdown:SetText(statusText)
-	end
-	
 end
 
 function SetPhantomEco(pEco)
