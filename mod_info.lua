@@ -1,0 +1,27 @@
+-- Phantom-X mod_info.lua file
+--
+-- Documentation for the extended FAF mod_info.lua format can be found here:
+-- https://github.com/FAForever/fa/wiki/mod_info.lua-documentation
+name = "Phantom-X"
+version = 250
+copyright = "Unknown"
+description = "Phantom-X game mod for Forged Alliance Forever"
+author = "Original code by novaprim3.  Additional code by Duck_42 and mead."
+url = "https://github.com/FAForever/faf-phantomx"
+uid = "7d9bfed9-76f2-489f-bb61-00b6bf08ec99"
+selectable = false
+exclusive = false
+ui_only = false
+conflicts = { }
+mountpoints = {
+    ENV = "/env",
+    LOC = '/loc',
+    SCHOOK = '/phantomxhook',
+    effects = '/effects',
+    lua = '/lua',
+    meshes = '/meshes',
+    modules = '/modules',
+    projectiles = '/projectiles',
+    textures = '/textures',
+    units = '/units'
+}
