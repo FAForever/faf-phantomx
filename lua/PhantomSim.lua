@@ -756,7 +756,7 @@ function PhantomXResourceThread()
 				mass = mass - cur.resourceTransferOffset.mass
 				if mass < 0 then
 					mass = 0
-					errorCheck
+					errorCheck = true
 				end
 				cur.resourceTransferOffset.mass = 0
 			end
