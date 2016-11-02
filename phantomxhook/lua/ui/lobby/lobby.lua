@@ -38,6 +38,7 @@ function MapHasCivilianArmy(scenario)
 end
 
 --Random, but not UEF faction option
+FACTION_NAMES[5] = "randomNoUEF"
 FACTION_NAMES[6] = "random"
 
 local RandomNoUEFFaction = {
@@ -49,36 +50,74 @@ local RandomNoUEFFaction = {
 	
 table.insert(FactionData.Factions, RandomNoUEFFaction)
 
-function GetRandomFactionIndex()
+function GetRandomFactionIndex(slotNumber)
     local randomfaction = nil
     local counter = 50
+    local size = 0
+    for _,faction in GUI.slots[slotNumber].AvailableFactions do
+        if ( string.len(faction) < 6 or string.sub(faction,1,6) ~= 'random') then
+            size = size + 1
+        end
+    end
+    
     while counter > 0 do
         counter = (counter - 1)
-        randomfaction = math.random(1, table.getn(FactionData.Factions)-1)
+        randomfaction = math.random(1, size)
     end
     return randomfaction
 end
 
-function GetRandomFactionIndex_noUEF()
+function GetRandomFactionIndex_noUEF(possibleFactions)
     local randomfaction
 	local counter = 50
+    local size = 0
+    for _,_ in possibleFactions do
+        size = size + 1
+    end
 	
     --Loop 50 times (see LUA documentation on math.random)
 	while counter > 0 do
 		--Exclude UEF from selection range
         counter = (counter - 1)
-        randomfaction = math.random(2, table.getn(FactionData.Factions)-1)
+        randomfaction = math.random(1, size)
     end
-    return randomfaction
+    
+    for faction,_ in possibleFactions do
+        randomfaction = randomfaction - 1
+        if randomfaction == 0 then
+            return faction
+        end
+    end
 end
 
 local PX_oldAssignRandomFactions = AssignRandomFactions
+local saveRandoms = {}
 function AssignRandomFactions()
+    local scenario = MapUtil.LoadScenario(gameInfo.GameOptions.ScenarioFile)
+    local randomFactions = {}
     --Handle the "Random - No UEF" option
-	local randomNoUEFFactionID = table.getn(FactionData.Factions)
+	
     for index, player in gameInfo.PlayerOptions do
+        local randomNoUEFFactionID = -1
+        for i,faction in GUI.slots[index].AvailableFactions do
+            if faction == 'randomNoUEF' then
+                randomNoUEFFactionID = i
+            end
+        end
 		if player.Faction == randomNoUEFFactionID then
-            player.Faction = GetRandomFactionIndex_noUEF()
+            local possibleFactions = {}
+            if scenario.Configurations.standard.factions then
+                addAllRandomNoUEFPossibilities(possibleFactions, scenario.Configurations.standard.factions[index])
+                for _,faction in scenario.Configurations.standard.factions[index] do
+                    if faction == 'randomNoUEF' then
+                        addAllRandomNoUEFPossibilities(possibleFactions, FACTION_NAMES)
+                    end
+                end
+            else
+                addAllRandomNoUEFPossibilities(possibleFactions, FACTION_NAMES)
+            end
+            player.Faction = 1
+            saveRandoms[index] = GetRandomFactionIndex_noUEF(possibleFactions)
         end
     end
         
@@ -86,6 +125,22 @@ function AssignRandomFactions()
     --Note that by this point, any "Random - No UEF" players should have a faction and so, should not be assigned another
     PX_oldAssignRandomFactions()
 end
+
+local oldFixFactionIndexes = FixFactionIndexes
+function FixFactionIndexes()
+    oldFixFactionIndexes()
+    for index,player in gameInfo.PlayerOptions do
+        if saveRandoms[index] then
+            for i,faction in FACTION_NAMES do
+                if saveRandoms[index] == faction then
+                    player.Faction = i
+                    break
+                end
+            end
+        end
+    end
+end
+
 
 --Help UI Changes
 local PhantomX_Original_CreateUI = CreateUI
@@ -105,4 +160,45 @@ function CreatePhantomLobbyUI()
 	GUI.showPhantomXHelp.OnClick = function(self, modifiers)
 		import('/modules/help_ui.lua').ShowPhantomXHelpDialog(GUI.panel)
 	end
+end
+
+local oldUpdateAvailableSlots = UpdateAvailableSlots
+function UpdateAvailableSlots( numAvailStartSpots, scenario )
+    
+    local randomNoUEFList = { }
+    for _,faction in FACTION_NAMES do
+        -- add randomNoUEF based on availability of real factions that are not uef (so nothing that starts with random)
+        if faction ~= 'uef' and ( string.len(faction) < 6 or string.sub(faction,1,6) ~= 'random') then
+            randomNoUEFList[faction] = true
+        end
+    end
+    
+    if scenario.Configurations.standard.factions then
+        for _,factionList in scenario.Configurations.standard.factions do
+            local numbFactions = 0
+            for _,faction in factionList do
+                if randomNoUEFList[faction] then
+                    numbFactions = numbFactions + 1
+                end
+                if faction == 'randomNoUEF' then
+                    -- it's already in there, no need to add it
+                    numbFactions = -1
+                    break
+                end
+            end
+            if numbFactions >= 2 then
+                table.insert(factionList, 'randomNoUEF')
+            end
+        end
+    end
+    oldUpdateAvailableSlots( numAvailStartSpots, scenario)
+end
+
+function addAllRandomNoUEFPossibilities(resultList, factionList)
+    for _,faction in factionList do
+        -- add randomNoUEF based on availability of real factions that are not uef (so nothing that starts with random)
+        if faction ~= 'uef' and ( string.len(faction) < 6 or string.sub(faction,1,6) ~= 'random') then
+            resultList[faction] = true
+        end
+    end
 end
