@@ -3,7 +3,7 @@
 -- Documentation for the extended FAF mod_info.lua format can be found here:
 -- https://github.com/FAForever/fa/wiki/mod_info.lua-documentation
 name = "Phantom-X"
-version = 251
+version = 252
 copyright = "Unknown"
 description = "Phantom-X game mod for Forged Alliance Forever"
 author = "Original code by novaprim3.  Additional code by Duck_42 and mead."
