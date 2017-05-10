@@ -4,32 +4,62 @@
             label = "<LOC phantomx_0001>P-X: Bonus Multiplier",
             help = "<LOC phantomx_0002>Percentage of the standard bonus that phantoms and paladins will receive.",
             key = 'PhantomBonusMultiplier',
-          pref = 'PhantomX_Bonus_Multiplier',
+            pref = 'PhantomX_Bonus_Multiplier',
             values = {
-             {
-                    text = "<LOC phantomx_0003>120 percent",
-                    help = "<LOC phantomx_0004>120 percent",
-                    key = '120',
-                },
-             {
-                    text = "<LOC phantomx_0005>110 percent",
-                    help = "<LOC phantomx_0006>110 percent",
-                    key = '110',
-                },
-             {
-                    text = "<LOC phantomx_0007>100 percent",
-                    help = "<LOC phantomx_0008>100 percent",
-                    key = '100',
+                {
+                    text = "70 percent",
+                    help = "70 percent",
+                    key = '70',
                 },
                 {
-                    text = "<LOC phantomx_0009>90 percent",
-                    help = "<LOC phantomx_0010>90 percent",
+                    text = "80 percent",
+                    help = "80 percent",
+                    key = '80',
+                },
+                {
+                    text = "90 percent",
+                    help = "90 percent",
                     key = '90',
                 },
                 {
-                    text = "<LOC phantomx_0011>80 percent",
-                    help = "<LOC phantomx_0012>80 percent",
-                    key = '80',
+                    text = "100 percent",
+                    help = "100 percent",
+                    key = '100',
+                },
+                {
+                    text = "110 percent",
+                    help = "110 percent",
+                    key = '110',
+                },
+                {
+                    text = "120 percent",
+                    help = "120 percent",
+                    key = '120',
+                },
+                {
+                    text = "130 percent",
+                    help = "130 percent",
+                    key = '130',
+                },
+                {
+                    text = "150 percent",
+                    help = "150 percent",
+                    key = '150',
+                },
+                {
+                    text = "175 percent",
+                    help = "175 percent",
+                    key = '175',
+                },
+                {
+                    text = "200 percent",
+                    help = "200 percent",
+                    key = '200',
+                },
+                {
+                    text = "250 percent",
+                    help = "250 percent",
+                    key = '250',
                 },
           },
        }
