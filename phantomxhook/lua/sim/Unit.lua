@@ -25,3 +25,6 @@ Unit.OnKilled = function(self, instigator, type, overkillRatio)
     end
     PhantomOriginalOnKilled(self, instigator, type, overkillRatio)
 end
+
+Unit.SendNotifyMessage = function(self, trigger, source) -- Disable Notify
+end
