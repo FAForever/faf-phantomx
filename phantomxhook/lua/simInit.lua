@@ -8,6 +8,10 @@
 #****************************************************************************
 local modPath = 'Phantom-X'
 
+function ShuffleStartPositions(syncNewPositions) -- Disable spawn shuffling and syncing since everyone starts allied
+    syncStartPositions = false
+end
+
 local ParentBeginSession = BeginSession
 function BeginSession()
     ParentBeginSession()
