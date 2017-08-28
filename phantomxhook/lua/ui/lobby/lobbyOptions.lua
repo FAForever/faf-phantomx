@@ -1,6 +1,6 @@
         table.insert(globalOpts,
         {
-            default = 3,
+            default = 4,
             label = "<LOC phantomx_0001>P-X: Bonus Multiplier",
             help = "<LOC phantomx_0002>Percentage of the standard bonus that phantoms and paladins will receive.",
             key = 'PhantomBonusMultiplier',
