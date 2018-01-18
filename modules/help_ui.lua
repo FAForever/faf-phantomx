@@ -45,7 +45,7 @@ helpText = helpText..'-No Reveal After Death\n'
 helpText = helpText..'This option does pretty much what you\'d think.  When enabled, the game does not reveal a player\'s affiliation (phantom or innocent) when they die. This was created as a hardcore phantom option and was intended for use in no reveal games. As in normal phantom, the game will end when all phantoms are dead or when the last phantom kills off the other remaining player. As you might expect, this option can lead to some pretty paranoid game play.\n\n\n'
 helpText = helpText..'Other Rules\n\n'
 helpText = helpText..' -Engineer Trading\n'
-helpText = helpText..'    Although not often explicitly stated, engineer trading is usually prohibited in phantom games. Host should make it clear before the game begins if engineer trading is allowed. Stealing (capturing) engineers is usually allowed as long as it\'s not just a disguised trade.\n'
+helpText = helpText..'    Although not often explicitly stated, engineer trading is usually prohibited in phantom games. Therefore host should explicity say that it is allowed if it is, to avoid confusion. Stealing (capturing) engineers is usually allowed as long as it\'s not just a disguised trade.\n'
 
 function ShowPhantomXHelpDialog(inParent)
 	local dialogContent = Group(inParent)
