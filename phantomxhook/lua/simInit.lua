@@ -1,12 +1,16 @@
-#****************************************************************************
-#**
-#**  File     :  /hook/lua/simInit.lua
-#**  Author(s):  novaprim3
-#**
-#**  Summary  :  Multi-Phantom Mod for Forged Alliance
-#**
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /hook/lua/simInit.lua
+--**  Author(s):  novaprim3
+--**
+--**  Summary  :  Multi-Phantom Mod for Forged Alliance
+--**
+--****************************************************************************
 local modPath = 'Phantom-X'
+
+function ShuffleStartPositions(syncNewPositions) -- Disable spawn shuffling and syncing since everyone starts allied
+    syncStartPositions = false
+end
 
 local ParentBeginSession = BeginSession
 function BeginSession()
@@ -15,4 +19,5 @@ function BeginSession()
     if( tonumber(ScenarioInfo.Options.Phantom_Meteor)) == 1 then
         ForkThread(import('/modules/meteors.lua').MeteorsThread)
     end
+    import('/lua/sim/score.lua').alliesScore = false
 end
