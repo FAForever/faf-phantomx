@@ -127,6 +127,9 @@ function PhantomMainThread()
     cur.config.paladin_marks = (tonumber(ScenarioInfo.Options.Phantom_PaladinMarks))
 	cur.config.autobalance = (tonumber(ScenarioInfo.Options.Phantom_AutoBalance))
 	cur.config.phantnumber = (tonumber(ScenarioInfo.Options.Phantom_PhantNumber))
+	cur.config.vote = tonumber(ScenarioInfo.Options.PhantomAssignTime) - 110
+	cur.config.volunteer = tonumber(ScenarioInfo.Options.PhantomAssignTime) - 60
+	cur.config.declare = tonumber(ScenarioInfo.Options.PhantomAssignTime)
 	
 	# Map coefficient values
 	if cur.config.paladin_coefficient == 0 then
