@@ -69,6 +69,65 @@ table.insert(globalOpts,
 
 table.insert(globalOpts,
     {
+        default = 7,
+        label = "P-X: assignment time",
+        help = "How long it takes after starting the game (in minutes) for the roles to be assigned",
+        key = 'PhantomAssignTime',
+        pref = 'PhantomX_Assign_Time',
+        values = {
+            {
+                text = "2",
+                help = "2 minutes.",
+                key = '120',
+            },
+            {
+                text = "3",
+                help = "3 minutes.",
+                key = '180',
+            },
+            {
+                text = "4",
+                help = "4 minutes.",
+                key = '240',
+            },
+            {
+                text = "5",
+                help = "5 minutes.",
+                key = '300',
+            },
+            {
+                text = "6",
+                help = "6 minutes.",
+                key = '360',
+            },
+            {
+                text = "7",
+                help = "7 minutes.",
+                key = '420',
+            },
+            {
+                text = "8",
+                help = "8 minutes.",
+                key = '480',
+            },
+            {
+                text = "10",
+                help = "10 minutes.",
+                key = '600',
+            },
+            {
+                text = "15",
+                help = "15 minutes.",
+                key = '900',
+            },
+        },
+    }
+)
+
+###
+
+table.insert(globalOpts,
+    {
         default = 1,
         label = "<LOC phantomx_0013>P-X: Reveal Players To",
         help = "<LOC phantomx_0014>Determines who will see Phantom-X reveal messages.",
