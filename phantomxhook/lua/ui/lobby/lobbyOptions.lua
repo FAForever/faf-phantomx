@@ -7,6 +7,21 @@ table.insert(globalOpts,
         pref = 'PhantomX_Bonus_Multiplier',
         values = {
             {
+                text = "30 percent",
+                help = "30 percent",
+                key = '30',
+            },
+            {
+                text = "50 percent",
+                help = "50 percent",
+                key = '50',
+            },
+            {
+                text = "60 percent",
+                help = "60 percent",
+                key = '60',
+            },
+            {
                 text = "70 percent",
                 help = "70 percent",
                 key = '70',
