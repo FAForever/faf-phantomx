@@ -15,10 +15,6 @@ AIBrain.OnDefeat = function(self)
         # seems that FA send the OnDeath twice : one when losing, the other when disconnecting (function AbandonedByPlayer).
         # But we only want it one time !
 
-        if ArmyIsOutOfGame(self:GetArmyIndex()) then
-            return
-        end
-
         SetArmyOutOfGame(self:GetArmyIndex())
 
 
