@@ -20,14 +20,14 @@
 --**              "Reveal To", "RevealWho", and bonus multiplier 
 --**              configuration options.								Duck_42
 --**  2012.08.16: Added code and lobby option to allow hiding a 
---**			 p    players assigment after his death					mead
+--**			     players assigment after his death					mead
 --**  2012.10.13: Added code to support marking Paladins				Duck_42
 --**  2012.10.20: Added code to obfuscate bonus amounts
 --**  			 (only updated every 30 seconds).  This will help
 --**				 prevent phantoms and paladins from easily 
 --**				 identifying each other                             mead
 --**  2012.10.20: Added code to allow players to volunteer to be 
---**  			 phantom.  Volunteering does not gurrantee that a 
+--**  			 phantom. p Volunteering does not gurrantee that a 
 --**				 player will be selected, but it does greatly
 --**				 increase the odds.                                 mead
 --**  2013.01.23: Added code for rudimentary autoteam-balacing 		mead
@@ -112,7 +112,7 @@ function PhantomMainThread()
 --	cur.config.declare = ScenarioInfo.Options.PhantomDeclareTime
 --	cur.config.vote = cur.config.declare - (1 * 60)
 	
-	--Bugfix --1: Removed cummulative addition of reveal times
+	--Bugfix #1: Removed cummulative addition of reveal times
 	
 	--Remove these comments for SCD version...
 	cur.config.reveal1 = (tonumber(ScenarioInfo.Options.PhantomRevealTime1) * 60)
