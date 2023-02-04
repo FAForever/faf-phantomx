@@ -27,7 +27,7 @@
 --**				 prevent phantoms and paladins from easily 
 --**				 identifying each other                             mead
 --**  2012.10.20: Added code to allow players to volunteer to be 
---**  			 phantom. p Volunteering does not gurrantee that a 
+--**  			 phantom. Volunteering does not gurrantee that a 
 --**				 player will be selected, but it does greatly
 --**				 increase the odds.                                 mead
 --**  2013.01.23: Added code for rudimentary autoteam-balacing 		mead
