@@ -1,11 +1,11 @@
-#****************************************************************************
-#**
-#**  File     :  /hook/lua/ui/game/gamemain.lua
-#**  Author(s):  novaprim3
-#**
-#**  Summary  :  Multi-Phantom Mod for Forged Alliance
-#**
-#****************************************************************************
+--****************************************************************************
+--**
+--**  File     :  /hook/lua/ui/game/gamemain.lua
+--**  Author(s):  novaprim3
+--**
+--**  Summary  :  Multi-Phantom Mod for Forged Alliance
+--**
+--****************************************************************************
 local modPath = 'Phantom-X'
 
 local baseCreateUI = CreateUI 

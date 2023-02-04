@@ -20,7 +20,7 @@
 --**              "Reveal To", "RevealWho", and bonus multiplier 
 --**              configuration options.								Duck_42
 --**  2012.08.16: Added code and lobby option to allow hiding a 
---**			     players assigment after his death					mead
+--**			 p    players assigment after his death					mead
 --**  2012.10.13: Added code to support marking Paladins				Duck_42
 --**  2012.10.20: Added code to obfuscate bonus amounts
 --**  			 (only updated every 30 seconds).  This will help
@@ -112,7 +112,7 @@ function PhantomMainThread()
 --	cur.config.declare = ScenarioInfo.Options.PhantomDeclareTime
 --	cur.config.vote = cur.config.declare - (1 * 60)
 	
-	--Bugfix #1: Removed cummulative addition of reveal times
+	--Bugfix --1: Removed cummulative addition of reveal times
 	
 	--Remove these comments for SCD version...
 	cur.config.reveal1 = (tonumber(ScenarioInfo.Options.PhantomRevealTime1) * 60)
@@ -266,7 +266,7 @@ function PhantomMainThread()
 	end	
 	
 	
-	--###################
+	----------------------------------------
 	
 	if cur.config.autobalance == 2 and cur.stats.phantom_count==2 then
 	
@@ -630,7 +630,7 @@ function CalculateStartingPaladinMarks()
 	return rtVal
 end
 
-# This function changes the way the score works
+-- This function changes the way the score works
 function PhantomCalculateScore(self)
 	local massValueDestroyed = self:GetArmyStat("Enemies_MassValue_Destroyed",0.0).Value
 	local massValueLost = self:GetArmyStat("Units_MassValue_Lost",0.0).Value
@@ -669,7 +669,7 @@ function EcoCalculateScore(self)
     return score
 end
 
-# This functions gives the resource bonus to the phantoms and paladins
+-- This functions gives the resource bonus to the phantoms and paladins
 function PhantomXResourceThread()
 	pEco = {
 		mass = 0,
@@ -694,9 +694,9 @@ function PhantomXResourceThread()
 		
 		if cur.phantom_war == false then
 			counter = counter + 1
-			--##########################################################
+			----------------------------------------------------------------------------------------------------------------------
 			-- Normal Conditions, phantoms get bonus as per normal
-			--##########################################################
+			----------------------------------------------------------------------------------------------------------------------
 			
 			-- Work out innocents combined incomes
 			local mass = 0
@@ -874,9 +874,9 @@ function PhantomXResourceThread()
 			lastPaladinMassBonus = paladin_mass
 			lastPaladinEnergyBonus = paladin_energy
 		else
-			--##########################################################
+			----------------------------------------------------------------------------------------------------------------------
 			-- Phantom War (Vampire) conditions (only phantoms remain)
-			--##########################################################
+			----------------------------------------------------------------------------------------------------------------------
 			for index, army in cur.phantoms do
 				if ArmyIsOutOfGame(army) == false then
 					brain = ArmyBrains[army]
@@ -909,7 +909,7 @@ function PhantomXResourceThread()
 	end
 end
 
-# Determines if an army is an innocent
+-- Determines if an army is an innocent
 function IsInnocent(army)
 	for index, p in cur.innocents do
 		if p == army then
@@ -920,7 +920,7 @@ function IsInnocent(army)
 	return false
 end
 
-# Determines if an army is a phantom
+-- Determines if an army is a phantom
 function IsPhantom(army)
 	if table.getn(cur.phantoms) == 0 then
 		return false
@@ -934,7 +934,7 @@ function IsPhantom(army)
 	end
 end
 
-# Determines if an army is a paladin
+-- Determines if an army is a paladin
 function IsPaladin(army)
 	if table.getn(cur.paladins) == 0 then
 		return false
@@ -948,7 +948,7 @@ function IsPaladin(army)
 	end
 end
 
-# Determines if an army is a paladin
+-- Determines if an army is a paladin
 function IsMarkedPaladin(army)
 	if table.getn(cur.marked_paladins) == 0 then
 		return false
@@ -975,13 +975,13 @@ function GetPhantomArmyNumber(army)
 	end
 end
 
-# Dump Resources (from UI)
+-- Dump Resources (from UI)
 function dumpResources(data)
 	brain = ArmyBrains[data.From]
 	brain:TakeResource(data.Args, math.floor(brain:GetEconomyStored(data.Args) * 0.9))	
 end
 
-# Vote (from UI)
+-- Vote (from UI)
 function vote(data)
 	cur.votes[data.Args.Vote] = cur.votes[data.Args.Vote] + 1
 	if data.Args.Vote == 1 then
@@ -1001,13 +1001,13 @@ function volunteer(data)
 end
 
 
-#Handle UI user side query
-#Necessary because WaitSeconds isn't allowed on query callbacks
+--Handle UI user side query
+--Necessary because WaitSeconds isn't allowed on query callbacks
 function HandleMarkPaladin(data)
 	cur.trash:Add(ForkThread(MarkPaladin, data))
 end
 
-# MarkPaladin (so that he loses the bonus)
+-- MarkPaladin (so that he loses the bonus)
 function MarkPaladin(data)
 	--Check to see if this Phantom is still alive...
 	if not ArmyIsOutOfGame(data.From) then
@@ -1060,7 +1060,7 @@ function MarkPaladin(data)
 	end
 end
 
-#This function applies the balance multiplier to the phantom bonus table
+--This function applies the balance multiplier to the phantom bonus table
 function ApplyBalanceMultiplier()
 	for i=0,table.getn(cur.config.phantom_economy) do
 		cur.config.phantom_economy[i].ally = cur.config.phantom_economy[i].ally * cur.config.balance_multiplier
@@ -1171,7 +1171,7 @@ function DoReveal(idx)
 	LOG('syncing from sim')
 end
 
-#Checks the current player type and reveal config to determine whether or not player will see reveal
+--Checks the current player type and reveal config to determine whether or not player will see reveal
 function CheckRevealConfigForThisPlayer()
 	local revealToPlayer = false
 	
