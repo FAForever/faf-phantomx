@@ -9,19 +9,9 @@ description = "Phantom-X game mod for Forged Alliance Forever"
 author = "Original code by novaprim3.  Additional code by Duck_42 and mead."
 url = "https://github.com/FAForever/faf-phantomx"
 uid = "9c80a4a3-1f28-4cff-a3e7-569a7e7b2bf8"
-selectable = false
+selectable = true
+enabled = true
 exclusive = false
 ui_only = false
 conflicts = { }
-mountpoints = {
-    ENV = "/env",
-    LOC = '/loc',
-    SCHOOK = '/phantomxhook',
-    effects = '/effects',
-    lua = '/lua',
-    meshes = '/meshes',
-    modules = '/modules',
-    projectiles = '/projectiles',
-    textures = '/textures',
-    units = '/units'
-}
+
