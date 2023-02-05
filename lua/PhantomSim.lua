@@ -103,7 +103,7 @@ function ChangeAssignmentTime(offset)
 	cur.config.declare = cur.config.declare + offset
 	cur.config.vote = cur.config.vote + offset
 	
-	import('/modules/meteors.lua').UpdateAssignmentTime(offset)
+	import('/mods/faf-phantomx/modules/meteors.lua').UpdateAssignmentTime(offset)
 	
 	Sync.pModifyAssignmentTime = cur.config.declare
 end

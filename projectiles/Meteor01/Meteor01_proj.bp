@@ -53,5 +53,5 @@ ProjectileBlueprint {
         TurnRate = 360,
         VelocityAlign = true,
     },
-    StrategicIconName = '/textures/ui/common/game/unit-over/icon_meteor.dds',
+    StrategicIconName = '/mods/faf-phantomx/textures/ui/common/game/unit-over/icon_meteor.dds',
 }
