@@ -223,7 +223,7 @@ function SpawnMeteor(posX, posY, posZ)
   	Warp( meteorProj, Vector(posX, 500, posZ))
   	
   	--Create Target Decal
-  	local targetTex = '/textures/ui/common/game/AreaTargetDecal/nuke_icon_small.dds'
+  	local targetTex = '/mods/faf-phantomx/textures/ui/common/game/AreaTargetDecal/nuke_icon_small.dds'
   	local targetHndl = CreateDecal({posX, posY, posZ}, 0, targetTex, '', 'Water Albedo', dmgTable.DamageRadius * 2, dmgTable.DamageRadius * 2, 600, 8.7, -1)
 end
 

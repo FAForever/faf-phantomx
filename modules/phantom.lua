@@ -9,7 +9,7 @@
 #**  2012.06.03: Fixed countdown timer problem.                       Duck_42
 #**  2012.07.07: Added phantom bonus info to UI.                      Duck_42
 #****************************************************************************
-local modPath = ''
+local modPath = '/mods/faf-phantomx/'
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -21,8 +21,8 @@ local StatusBar = import('/lua/maui/statusbar.lua').StatusBar
 local GameMain = import('/lua/ui/game/gamemain.lua')
 local Tooltip = import('/lua/ui/game/tooltip.lua')
 local Prefs = import('/lua/user/prefs.lua')
-local RevealUI = import('/modules/reveal_ui.lua')
-local MeteorUI = import('/modules/meteor_ui.lua')
+local RevealUI = import('/mods/faf-phantomx/modules/reveal_ui.lua')
+local MeteorUI = import('/mods/faf-phantomx/modules/meteor_ui.lua')
 
 local declare = 8 * 60
 
@@ -120,25 +120,25 @@ function BuildUI()
     pUI.box.killIcon = Bitmap(pUI.box)
         
 	pUI.box.massBtn = Button(pUI.box,
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mass_btn_up_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mass_btn_down_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mass_btn_over_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mass_btn_dis_ph.dds'), 
+		UIUtil.SkinnableFile(modPath..'textures/resources/mass_btn_up_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/mass_btn_down_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/mass_btn_over_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/mass_btn_dis_ph.dds'), 
 		'', '')
 	#Tooltip.AddButtonTooltip(pUI.box.massBtn, Tooltip.CreateExtendedToolTip(pUI.box.massBtn, 'Dump Mass', 'Dumps 90% of your mass reserve to prevent looking suspicious'))
 
 	pUI.box.energyBtn = Button(pUI.box,
-		UIUtil.SkinnableFile(modPath..'/textures/resources/energy_btn_up_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/energy_btn_down_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/energy_btn_over_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/energy_btn_dis_ph.dds'), 
+		UIUtil.SkinnableFile(modPath..'textures/resources/energy_btn_up_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/energy_btn_down_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/energy_btn_over_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/energy_btn_dis_ph.dds'), 
 		'', '')	
 		
 	pUI.box.markBtn = Button(pUI.box,
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mark_btn_up_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mark_btn_down_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mark_btn_over_ph.dds'),
-		UIUtil.SkinnableFile(modPath..'/textures/resources/mark_btn_dis_ph.dds'), 
+		UIUtil.SkinnableFile(modPath..'textures/resources/mark_btn_up_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/mark_btn_down_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/mark_btn_over_ph.dds'),
+		UIUtil.SkinnableFile(modPath..'textures/resources/mark_btn_dis_ph.dds'), 
 		'', '')	
 end
 

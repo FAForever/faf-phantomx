@@ -314,7 +314,7 @@ function SetLayout()
     controls.timeIcon.Width:Set(function() return controls.timeIcon.BitmapWidth() * .8 end)
     
     
-    controls.meteorIcon:SetTexture(UIUtil.UIFile('/textures/resources/meteor_icon.dds'))
+    controls.meteorIcon:SetTexture(UIUtil.UIFile('/mods/faf-phantomx/textures/resources/meteor_icon.dds'))
     controls.meteorIcon.Height:Set(57)
     controls.meteorIcon.Width:Set(59)
 	LayoutHelpers.AtRightTopIn(controls.meteorIcon, controls.infoPanel, -60, 1)
