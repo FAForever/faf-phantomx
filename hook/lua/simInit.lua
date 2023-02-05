@@ -12,11 +12,18 @@ function ShuffleStartPositions(syncNewPositions) -- Disable spawn shuffling and 
     syncStartPositions = false
 end
 
+local oldImport = import
+function import(x)
+    if x == '/lua/PhantomSim.lua' then
+        return oldImport('/mods/faf-phantomx/lua/PhantomSim.lua')
+    end
+    return oldImport(x)
+end
+
 local ParentBeginSession = BeginSession
 function BeginSession()
     
     ParentBeginSession()
-    LOG("THIS IS WORKING!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     ForkThread(import('/mods/faf-phantomx/lua/PhantomSim.lua').PhantomMainThread)
     if( tonumber(ScenarioInfo.Options.Phantom_Meteor)) == 1 then
         ForkThread(import('/mods/faf-phantomx/modules/meteors.lua').MeteorsThread)

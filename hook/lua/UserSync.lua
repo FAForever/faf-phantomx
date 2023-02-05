@@ -46,7 +46,7 @@ function OnSync()
         import('/mods/faf-phantomx/modules/phantom.lua').ShowVolunteerVote()
     end
     if Sync.pEcoObfuscate then
-        import('/mods/faf-phantomx/lua/ui/game/economy.lua').UpdatePhantomEco(Sync.pEcoObfuscate)
+        import('/mods/faf-phantomx/hook/lua/ui/game/economy.lua').UpdatePhantomEco(Sync.pEcoObfuscate)
     end
     if Sync.pModifyAssignmentTime then
         import('/mods/faf-phantomx/modules/phantom.lua').UpdateAssignmentTime(Sync.pModifyAssignmentTime)
