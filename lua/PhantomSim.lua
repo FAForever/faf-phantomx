@@ -123,10 +123,14 @@ function PhantomMainThread()
 	cur.config.balance_multiplier = (tonumber(ScenarioInfo.Options.PhantomBonusMultiplier))/100.0
 	cur.config.paladin_bonus = (tonumber(ScenarioInfo.Options.PhantomPaladinBonus))/100.0
 	cur.config.paladin_coefficient = (tonumber(ScenarioInfo.Options.PhantomPaladinCoefficient))
-    cur.config.death_reveal = (tonumber(ScenarioInfo.Options.Phantom_DeathReveal))
-    cur.config.paladin_marks = (tonumber(ScenarioInfo.Options.Phantom_PaladinMarks))
+	cur.config.death_reveal = (tonumber(ScenarioInfo.Options.Phantom_DeathReveal))
+	cur.config.paladin_marks = (tonumber(ScenarioInfo.Options.Phantom_PaladinMarks))
 	cur.config.autobalance = (tonumber(ScenarioInfo.Options.Phantom_AutoBalance))
 	cur.config.phantnumber = (tonumber(ScenarioInfo.Options.Phantom_PhantNumber))
+	
+	-- Make random random again
+	math.randomseed(os.time())
+	math.random(); math.random(); math.random();
 	
 	-- Map coefficient values
 	if cur.config.paladin_coefficient == 0 then
