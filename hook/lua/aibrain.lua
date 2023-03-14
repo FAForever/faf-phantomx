@@ -2,7 +2,7 @@ local PhantomCode = import('/mods/faf-phantomx/lua/PhantomSim.lua')
 local onDefeatRunTracking = {}
 
 AIBrain.OnDefeat = function(self)
-        ##For Sorian AI
+        --For Sorian AI
         if self.BrainType == 'AI' then
             SUtils.AISendChat('enemies', ArmyBrains[self:GetArmyIndex()].Nickname, 'ilost')
         end
@@ -10,7 +10,7 @@ AIBrain.OnDefeat = function(self)
         if string.find(per, 'sorian') then
             SUtils.GiveAwayMyCrap(self)
         end
-        ###end sorian AI bit
+        --end sorian AI bit
 
         SetArmyOutOfGame(self:GetArmyIndex())
 
@@ -22,18 +22,6 @@ AIBrain.OnDefeat = function(self)
         local pType = 'innocent '
         if PhantomCode.IsPhantom(self:GetArmyIndex()) then
             pType = 'phantom '
-        end
-        
-
-        local result = string.format("%s %i", pType.."defeat", math.floor(self:GetArmyStat("FAFWin",0.0).Value + self:GetArmyStat("FAFLose",0.0).Value) )
-        table.insert( Sync.GameResult, { self:GetArmyIndex(), result } )
-
-        # Score change, we send the score of all other players, yes mam !
-        for index, brain in ArmyBrains do
-            if brain and not brain:IsDefeated() then
-                local result = string.format("%s %i", "score", math.floor(brain:GetArmyStat("FAFWin",0.0).Value + brain:GetArmyStat("FAFLose",0.0).Value) )
-                table.insert( Sync.GameResult, { index, result } )
-            end
         end
 
         import('/lua/SimUtils.lua').UpdateUnitCap(self:GetArmyIndex())
@@ -100,7 +88,7 @@ AIBrain.OnDefeat = function(self)
         end
 
         ForkThread(KillArmy)
-        ##For Sorian AI bit 2
+        --For Sorian AI bit 2
         if self.BuilderManagers then
             self.ConditionsMonitor:Destroy()
             for k,v in self.BuilderManagers do
@@ -117,7 +105,7 @@ AIBrain.OnDefeat = function(self)
         if self.Trash then
             self.Trash:Destroy()
         end
-        ###end Sorian AI bit 2
+        --end Sorian AI bit 2
     end
 
 AIBrain.OnVictory = function(self)
@@ -127,19 +115,6 @@ AIBrain.OnVictory = function(self)
         if PhantomCode.IsPhantom(self:GetArmyIndex()) then
             pType = 'phantom '
         end
-        
-           local result = string.format("%s %i", pType.."victory", math.floor(self:GetArmyStat("FAFWin",0.0).Value + self:GetArmyStat("FAFLose",0.0).Value) )
-        table.insert( Sync.GameResult, { self:GetArmyIndex(), result } )
-
-        # Score change, we send the score of all other players, yes mam !
-        for index, brain in ArmyBrains do
-            if brain and not brain:IsDefeated() then
-                local result = string.format("%s %i", "score", math.floor(brain:GetArmyStat("FAFWin",0.0).Value + brain:GetArmyStat("FAFLose",0.0).Value) )
-                table.insert( Sync.GameResult, { index, result } )
-            end
-        end
-
-
     end
 
 AIBrain.OnDraw = function(self)
@@ -148,8 +123,5 @@ AIBrain.OnDraw = function(self)
         if PhantomCode.IsPhantom(self:GetArmyIndex()) then
             pType = 'phantom '
         end
-        
-        local result = string.format("%s %i", pType.."draw", math.floor(self:GetArmyStat("FAFWin",0.0).Value + self:GetArmyStat("FAFLose",0.0).Value) )
-        table.insert(Sync.GameResult, { self:GetArmyIndex(), result })
     end
     
