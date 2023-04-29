@@ -112,6 +112,12 @@ function PhantomMainThread()
 --	cur.config.declare = ScenarioInfo.Options.PhantomDeclareTime
 --	cur.config.vote = cur.config.declare - (1 * 60)
 	
+	-- Initialize the random function of lua to be actually (mostly) random
+	math.randomseed(os.time())
+	math.random(); math.random(); math.random();
+
+
+	
 	--Bugfix #1: Removed cummulative addition of reveal times
 	
 	--Remove these comments for SCD version...
@@ -123,8 +129,8 @@ function PhantomMainThread()
 	cur.config.balance_multiplier = (tonumber(ScenarioInfo.Options.PhantomBonusMultiplier))/100.0
 	cur.config.paladin_bonus = (tonumber(ScenarioInfo.Options.PhantomPaladinBonus))/100.0
 	cur.config.paladin_coefficient = (tonumber(ScenarioInfo.Options.PhantomPaladinCoefficient))
-    cur.config.death_reveal = (tonumber(ScenarioInfo.Options.Phantom_DeathReveal))
-    cur.config.paladin_marks = (tonumber(ScenarioInfo.Options.Phantom_PaladinMarks))
+        cur.config.death_reveal = (tonumber(ScenarioInfo.Options.Phantom_DeathReveal))
+        cur.config.paladin_marks = (tonumber(ScenarioInfo.Options.Phantom_PaladinMarks))
 	cur.config.autobalance = (tonumber(ScenarioInfo.Options.Phantom_AutoBalance))
 	cur.config.phantnumber = (tonumber(ScenarioInfo.Options.Phantom_PhantNumber))
 	
